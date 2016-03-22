@@ -35,37 +35,19 @@ public class MyManage {
 
     }   // Constructor
 
-    public long addValueToSQLite(int intTABLE,
-                                 String strFirst,
+    public long addValueToSQLite(String strFirst,
                                  String strSecond,
                                  String strThird) {
 
         long myLong = 0;
 
-        switch (intTABLE) {
+        //userTABLE
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(column_User, strFirst);
+        contentValues.put(column_Password, strSecond);
+        contentValues.put(column_Name, strThird);
 
-            case 1:
-                //userTABLE
-                ContentValues contentValues = new ContentValues();
-                contentValues.put(column_User, strFirst);
-                contentValues.put(column_Password, strSecond);
-                contentValues.put(column_Name, strThird);
-
-                myLong = writeSqLiteDatabase.insert(user_table, null, contentValues);
-
-                break;
-            case 2:
-                //foodTABLE
-                ContentValues contentValues1 = new ContentValues();
-                contentValues1.put(column_Food, strFirst);
-                contentValues1.put(column_Price, strSecond);
-                contentValues1.put(column_Source, strThird);
-
-                myLong = writeSqLiteDatabase.insert(food_table, null, contentValues1);
-
-                break;
-
-        }   // switch
+        myLong = writeSqLiteDatabase.insert(user_table, null, contentValues);
 
         return myLong;
     }
