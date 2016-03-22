@@ -20,10 +20,13 @@ public class MyManage {
     public static final String column_Name = "Name";
 
 
-    public static final String food_table = "foodTABLE";
-    public static final String column_Food = "Food";
-    public static final String column_Price = "Price";
-    public static final String column_Source = "Source";
+    public static final String question_table = "questionTABLE";
+    public static final String column_Question = "Question";
+    public static final String column_Choice1 = "Choice1";
+    public static final String column_Choice2 = "Choice2";
+    public static final String column_Choice3 = "Choice3";
+    public static final String column_Choice4 = "Choice4";
+    public static final String column_Answer = "Answer";
 
 
     public MyManage(Context context) {
@@ -34,6 +37,25 @@ public class MyManage {
         readSqLiteDatabase = myOpenHelper.getReadableDatabase();
 
     }   // Constructor
+
+    public long addQuestion(String strQuestion,
+                            String strChoice1,
+                            String strChoice2,
+                            String strChoice3,
+                            String strChoice4,
+                            String strAnswer) {
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(column_Question, strQuestion);
+        contentValues.put(column_Choice1, strChoice1);
+        contentValues.put(column_Choice2, strChoice2);
+        contentValues.put(column_Choice3, strChoice3);
+        contentValues.put(column_Choice4, strChoice4);
+        contentValues.put(column_Answer, strAnswer);
+
+        return writeSqLiteDatabase.insert(question_table, null, contentValues);
+    }
+
 
     public long addValueToSQLite(String strFirst,
                                  String strSecond,

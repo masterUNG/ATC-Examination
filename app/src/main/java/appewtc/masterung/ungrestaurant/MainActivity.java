@@ -37,8 +37,8 @@ public class MainActivity extends AppCompatActivity {
     }   // Main Method
 
     private void tester() {
-        myManage.addValueToSQLite(1, "user", "pass", "name");
-        myManage.addValueToSQLite(2, "food", "price", "source");
+        myManage.addValueToSQLite("user", "pass", "name");
+        myManage.addQuestion("คำถาม", "ก", "ข", "ค", "ง", "1");
     }
 
     private void buttonController() {
