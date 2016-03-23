@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -188,6 +189,7 @@ public class MainActivity extends AppCompatActivity {
 
                 } else {
                     //No Space
+                    checkUser();
 
                 }
 
@@ -195,6 +197,34 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }   // buttonController
+
+    private void checkUser() {
+
+        try {
+
+            String[] resultStrings = myManage.searchUser(userString);
+
+            if (passwordString.equals(resultStrings[2])) {
+                //Password True
+                Toast.makeText(MainActivity.this, "ยินดีต้อนรับ " + resultStrings[3],
+                        Toast.LENGTH_SHORT).show();
+
+            } else {
+                //Password False
+                MyAlertDialog myAlertDialog = new MyAlertDialog();
+                myAlertDialog.myDialog(MainActivity.this, "Password False",
+                        "Please Try again Password False");
+
+            }
+
+
+        } catch (Exception e) {
+            MyAlertDialog myAlertDialog = new MyAlertDialog();
+            myAlertDialog.myDialog(MainActivity.this, "ไม่มี User นี่",
+                   "ไม่มี " + userString + " ในฐานข้อมูลของเรา" );
+        }
+
+    }   // checkUser
 
     private void bindWidget() {
 
