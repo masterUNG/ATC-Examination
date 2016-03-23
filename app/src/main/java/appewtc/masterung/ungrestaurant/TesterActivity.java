@@ -1,5 +1,7 @@
 package appewtc.masterung.ungrestaurant;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.RadioButton;
@@ -19,7 +21,7 @@ public class TesterActivity extends AppCompatActivity {
             choice3RadioButton, choice4RadioButton;
     private String studentString, dateString;
     private String[] questionStrings, choice1Strings,
-            choice2Strings,choice3Strings,choice4Strings, answerStrings;
+            choice2Strings, choice3Strings, choice4Strings, answerStrings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +34,41 @@ public class TesterActivity extends AppCompatActivity {
         //Show View
         showView();
 
-
+        //Read All SQLite
+        readAllData();
 
 
     }   // Main Method
+
+    private void readAllData() {
+
+        SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
+                MODE_PRIVATE, null);
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + MyManage.question_table, null);
+        cursor.moveToFirst();
+        int intCount = cursor.getCount();
+
+        questionStrings = new String[intCount];
+        choice1Strings = new String[intCount];
+        choice2Strings = new String[intCount];
+        choice3Strings = new String[intCount];
+        choice4Strings = new String[intCount];
+        answerStrings = new String[intCount];
+
+        for (int i = 0; i < intCount; i++) {
+
+            questionStrings[i] = cursor.getString(1);
+            choice1Strings[i] = cursor.getString(2);
+            choice2Strings[i] = cursor.getString(3);
+            choice3Strings[i] = cursor.getString(4);
+            choice4Strings[i] = cursor.getString(5);
+            answerStrings[i] = cursor.getString(6);
+
+            cursor.moveToNext();
+        }   // for
+
+
+    }   // readAllData
 
     private void showView() {
         studentString = getIntent().getStringExtra("Student");
@@ -45,7 +78,6 @@ public class TesterActivity extends AppCompatActivity {
         Date date = new Date();
         dateString = dateFormat.format(date);
         dateTextView.setText(dateString);
-
 
 
     }
