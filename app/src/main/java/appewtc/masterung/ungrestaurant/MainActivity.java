@@ -1,6 +1,7 @@
 package appewtc.masterung.ungrestaurant;
 
 import android.database.sqlite.SQLiteDatabase;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -44,6 +45,12 @@ public class MainActivity extends AppCompatActivity {
     }   // Main Method
 
     private void synJSONtoSQLite() {
+
+        //Connected http
+        StrictMode.ThreadPolicy threadPolicy = new StrictMode.ThreadPolicy
+                .Builder().permitAll().build();
+        StrictMode.setThreadPolicy(threadPolicy);
+
 
 
 
