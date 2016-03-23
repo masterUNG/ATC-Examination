@@ -39,7 +39,8 @@
         android:textColorHint="@color/text"
         android:background="#82ffffff"
         android:textSize="@dimen/h2"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:textColor="@color/text" />
 
     <EditText
         android:layout_width="250dp"
@@ -53,7 +54,8 @@
         android:background="#82ffffff"
         android:textSize="@dimen/h2"
         android:layout_marginTop="15dp"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:textColor="@color/text" />
 
     <Button
         android:layout_width="match_parent"

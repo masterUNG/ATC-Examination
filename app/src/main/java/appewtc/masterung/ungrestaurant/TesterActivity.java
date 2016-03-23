@@ -1,5 +1,6 @@
 package appewtc.masterung.ungrestaurant;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
@@ -24,7 +25,7 @@ public class TesterActivity extends AppCompatActivity {
     private String studentString, dateString;
     private String[] questionStrings, choice1Strings,
             choice2Strings, choice3Strings, choice4Strings, answerStrings;
-    private int intTime = 1, intStudentChoose = 0, intScore = 0;
+    private int intTime = 0, intStudentChoose = 0, intScore = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,12 @@ public class TesterActivity extends AppCompatActivity {
 
 
     }   // Main Method
+
+
+    @Override
+    public void onBackPressed() {
+       // super.onBackPressed();
+    }
 
     private void radioController() {
 
@@ -80,18 +87,31 @@ public class TesterActivity extends AppCompatActivity {
 
         if (intTime < questionStrings.length) {
 
-            if (intStudentChoose == Integer.parseInt(answerStrings[intTime])) {
-                intScore += 1;
+            try {
+                if (intStudentChoose == Integer.parseInt(answerStrings[intTime])) {
+                    intScore += 1;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } //Try
+
+            intTime += 1;
+
+            if (intTime < questionStrings.length) {
+                changeView(intTime);
+            } else {
+                //Show Score
+                Intent intent = new Intent(TesterActivity.this, ShowScoreActivity.class);
+                intent.putExtra("Student", studentString);
+                intent.putExtra("Date", dateString);
+                intent.putExtra("Score", intScore);
+                startActivity(intent);
             }
 
-            changeView(intTime);
-            intTime += 1;
 
             Log.d("Score", "Score = " + intScore);
 
 
-        } else {
-            //Stop
         }
 
 
@@ -99,7 +119,7 @@ public class TesterActivity extends AppCompatActivity {
 
     private void changeView(int intIndex) {
 
-        questionTextView.setText(Integer.toString(intTime) +  ". " +
+        questionTextView.setText(Integer.toString(intTime + 1) + ". " +
                 questionStrings[intIndex]);
 
         choice1RadioButton.setText(choice1Strings[intIndex]);
