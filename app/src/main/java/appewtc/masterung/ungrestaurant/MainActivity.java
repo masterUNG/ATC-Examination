@@ -1,5 +1,6 @@
 package appewtc.masterung.ungrestaurant;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -208,6 +209,11 @@ public class MainActivity extends AppCompatActivity {
                 //Password True
                 Toast.makeText(MainActivity.this, "ยินดีต้อนรับ " + resultStrings[3],
                         Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(MainActivity.this, TesterActivity.class);
+                intent.putExtra("Student", resultStrings[3]);
+                startActivity(intent);
+
 
             } else {
                 //Password False
