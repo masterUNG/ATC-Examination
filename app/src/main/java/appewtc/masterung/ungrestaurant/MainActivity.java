@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
             //1 Create InputStream
             InputStream inputStream = null;
             String[] urlJSONStrings = {"http://swiftcodingthai.com/atc/php_get_user_master.php",
-            "http://swiftcodingthai.com/atc/php_get_question_master.php"};
+                    "http://swiftcodingthai.com/atc/php_get_question_master.php"};
 
             try {
 
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                 String strLine = null;
                 StringBuilder stringBuilder = new StringBuilder();
 
-                while ((strLine = bufferedReader.readLine()) != null ) {
+                while ((strLine = bufferedReader.readLine()) != null) {
                     stringBuilder.append(strLine);
                 }
                 inputStream.close();
@@ -114,8 +114,35 @@ public class MainActivity extends AppCompatActivity {
 
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                }   // for
+                    switch (intTABLE) {
+                        case 0:
+                            //userTABLE
 
+                            String strUser = jsonObject.getString(MyManage.column_User);
+                            String strPassword = jsonObject.getString(MyManage.column_Password);
+                            String strName = jsonObject.getString(MyManage.column_Name);
+
+                            myManage.addValueToSQLite(strUser, strPassword, strName);
+
+                            break;
+                        case 1:
+                            //questionTABLE
+
+                            String strQuestion = jsonObject.getString(MyManage.column_Question);
+                            String strChoice1 = jsonObject.getString(MyManage.column_Choice1);
+                            String strChoice2 = jsonObject.getString(MyManage.column_Choice2);
+                            String strChoice3 = jsonObject.getString(MyManage.column_Choice3);
+                            String strChoice4 = jsonObject.getString(MyManage.column_Choice4);
+                            String strAnswer = jsonObject.getString(MyManage.column_Answer);
+
+                            myManage.addQuestion(strQuestion,
+                                    strChoice1, strChoice2, strChoice3, strChoice4, strAnswer);
+
+                            break;
+                    }
+
+
+                }   // for
 
 
             } catch (Exception e) {
@@ -125,8 +152,6 @@ public class MainActivity extends AppCompatActivity {
 
             intTABLE += 1;
         }   // while
-
-
 
 
     }   // synJSONtoSQLite
