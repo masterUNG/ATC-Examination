@@ -22,6 +22,7 @@ public class TesterActivity extends AppCompatActivity {
     private String studentString, dateString;
     private String[] questionStrings, choice1Strings,
             choice2Strings, choice3Strings, choice4Strings, answerStrings;
+    private int intTime = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +38,24 @@ public class TesterActivity extends AppCompatActivity {
         //Read All SQLite
         readAllData();
 
+        //Show Times First
+        changeView(0);
+
 
     }   // Main Method
+
+    private void changeView(int intIndex) {
+
+        questionTextView.setText(Integer.toString(intTime) +  ". " +
+                questionStrings[intIndex]);
+
+        choice1RadioButton.setText(choice1Strings[intIndex]);
+        choice2RadioButton.setText(choice2Strings[intIndex]);
+        choice3RadioButton.setText(choice3Strings[intIndex]);
+        choice4RadioButton.setText(choice4Strings[intIndex]);
+
+    }
+
 
     private void readAllData() {
 
