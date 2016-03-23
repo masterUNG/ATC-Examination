@@ -6,6 +6,10 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class TesterActivity extends AppCompatActivity {
 
     //Explicit
@@ -13,6 +17,7 @@ public class TesterActivity extends AppCompatActivity {
     private RadioGroup choiceRadioGroup;
     private RadioButton choice1RadioButton, choice2RadioButton,
             choice3RadioButton, choice4RadioButton;
+    private String studentString, dateString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +27,24 @@ public class TesterActivity extends AppCompatActivity {
         //Bind Widget
         bindWidget();
 
+        //Show View
+        showView();
+
+
     }   // Main Method
+
+    private void showView() {
+        studentString = getIntent().getStringExtra("Student");
+        studentTextView.setText(studentString);
+
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        dateString = dateFormat.format(date);
+        dateTextView.setText(dateString);
+
+
+
+    }
 
     private void bindWidget() {
         studentTextView = (TextView) findViewById(R.id.textView2);
