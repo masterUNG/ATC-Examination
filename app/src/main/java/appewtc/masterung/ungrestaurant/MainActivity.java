@@ -31,10 +31,17 @@ public class MainActivity extends AppCompatActivity {
         buttonController();
 
         //Tester Add Value
-        tester();
+        //tester();
+
+        //Delete All SQLite
+        deleteAllSQLite();
 
 
     }   // Main Method
+
+    private void deleteAllSQLite() {
+
+    }
 
     private void tester() {
         myManage.addValueToSQLite("user", "pass", "name");
