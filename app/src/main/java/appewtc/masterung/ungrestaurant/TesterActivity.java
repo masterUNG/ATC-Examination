@@ -4,6 +4,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -22,7 +24,7 @@ public class TesterActivity extends AppCompatActivity {
     private String studentString, dateString;
     private String[] questionStrings, choice1Strings,
             choice2Strings, choice3Strings, choice4Strings, answerStrings;
-    private int intTime = 1;
+    private int intTime = 1, intStudentChoose = 0, intScore = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +43,59 @@ public class TesterActivity extends AppCompatActivity {
         //Show Times First
         changeView(0);
 
+        //Radio Controller
+        radioController();
+
 
     }   // Main Method
+
+    private void radioController() {
+
+        choiceRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+
+                switch (i) {
+                    case R.id.radioButton:
+                        intStudentChoose = 1;
+                        break;
+                    case R.id.radioButton2:
+                        intStudentChoose = 2;
+                        break;
+                    case R.id.radioButton3:
+                        intStudentChoose = 3;
+                        break;
+                    case R.id.radioButton4:
+                        intStudentChoose = 4;
+                        break;
+                }
+
+
+            }   // onChecked
+        });
+
+    }
+
+    public void clickAnswer(View view) {
+
+        if (intTime < questionStrings.length) {
+
+            if (intStudentChoose == Integer.parseInt(answerStrings[intTime])) {
+                intScore += 1;
+            }
+
+            changeView(intTime);
+            intTime += 1;
+
+            Log.d("Score", "Score = " + intScore);
+
+
+        } else {
+            //Stop
+        }
+
+
+    }   // clickAnswer
 
     private void changeView(int intIndex) {
 
