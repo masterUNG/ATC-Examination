@@ -1,12 +1,25 @@
 package appewtc.masterung.ungrestaurant;
 
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -50,6 +63,68 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy threadPolicy = new StrictMode.ThreadPolicy
                 .Builder().permitAll().build();
         StrictMode.setThreadPolicy(threadPolicy);
+
+        int intTABLE = 0;
+        while (intTABLE <= 1) {
+
+            //1 Create InputStream
+            InputStream inputStream = null;
+            String[] urlJSONStrings = {"http://swiftcodingthai.com/atc/php_get_user_master.php",
+            "http://swiftcodingthai.com/atc/php_get_question_master.php"};
+
+            try {
+
+                HttpClient httpClient = new DefaultHttpClient();
+                HttpPost httpPost = new HttpPost(urlJSONStrings[intTABLE]);
+                HttpResponse httpResponse = httpClient.execute(httpPost);
+                HttpEntity httpEntity = httpResponse.getEntity();
+                inputStream = httpEntity.getContent();
+
+            } catch (Exception e) {
+                Log.d("test", "Input ==> " + e.toString());
+            }
+
+
+            //2 Create JSON String
+            String strJSON = null;
+            try {
+
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+                String strLine = null;
+                StringBuilder stringBuilder = new StringBuilder();
+
+                while ((strLine = bufferedReader.readLine()) != null ) {
+                    stringBuilder.append(strLine);
+                }
+                inputStream.close();
+                strJSON = stringBuilder.toString();
+
+            } catch (Exception e) {
+                Log.d("test", "strJSON ==> " + e.toString());
+            }
+
+
+            //3 Update to SQLite
+
+            try {
+
+                JSONArray jsonArray = new JSONArray(strJSON);
+
+                for (int i = 0; i < jsonArray.length(); i++) {
+
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                }   // for
+
+
+
+            } catch (Exception e) {
+                Log.d("test", "Update ==> " + e.toString());
+            }
+
+
+            intTABLE += 1;
+        }   // while
 
 
 
