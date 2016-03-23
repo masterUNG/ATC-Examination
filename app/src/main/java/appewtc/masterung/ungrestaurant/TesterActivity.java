@@ -18,6 +18,8 @@ public class TesterActivity extends AppCompatActivity {
     private RadioButton choice1RadioButton, choice2RadioButton,
             choice3RadioButton, choice4RadioButton;
     private String studentString, dateString;
+    private String[] questionStrings, choice1Strings,
+            choice2Strings,choice3Strings,choice4Strings, answerStrings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,8 @@ public class TesterActivity extends AppCompatActivity {
 
         //Show View
         showView();
+
+
 
 
     }   // Main Method
